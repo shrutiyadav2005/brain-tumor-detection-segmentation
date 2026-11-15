@@ -1,0 +1,88 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# IDE and OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Datasets (large files must not be tracked in Git)
+data/brisc2025/
+data/classification_task/
+data/segmentation_task/
+data/*.zip
+data/*.tar.gz
+data/*.tar
+*.png_temp
+*.jpg_temp
+
+# Model checkpoints and weights (keep directory structure, exclude large binaries)
+checkpoints/*.pth
+checkpoints/*.pt
+checkpoints/*.onnx
+checkpoints/*.ckpt
+checkpoints/*.bin
+!checkpoints/README.md
+
+# Experiment outputs and logs
+results/classification/*.png
+results/classification/*.json
+results/classification/*.csv
+results/segmentation/*.png
+results/segmentation/*.json
+results/segmentation/*.csv
+results/visualizations/*.png
+!results/**/.gitkeep
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/

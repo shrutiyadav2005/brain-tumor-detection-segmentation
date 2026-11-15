@@ -1,0 +1,73 @@
+# Global Configuration for Brain Tumor Detection, Segmentation & Explainability System
+
+general:
+  seed: 42
+  device: "auto"  # Options: "auto", "cuda", "mps", "cpu"
+  deterministic: true
+
+dataset:
+  root_dir: "data/brisc2025"
+  classification:
+    train_dir: "data/brisc2025/classification_task/train"
+    test_dir: "data/brisc2025/classification_task/test"
+    val_split_from_train: 0.15  # Fraction of train data reserved for validation
+  segmentation:
+    train_images: "data/brisc2025/segmentation_task/train/images"
+    train_masks: "data/brisc2025/segmentation_task/train/masks"
+    test_images: "data/brisc2025/segmentation_task/test/images"
+    test_masks: "data/brisc2025/segmentation_task/test/masks"
+    val_split: 0.15             # Validation split if dedicated val set not present
+    test_split: 0.15            # Test split if dedicated test set not present
+  image_size: [224, 224]
+  num_workers: 2
+  pin_memory: true
+
+classification:
+  model_name: "resnet50"
+  pretrained: true
+  num_classes: 4
+  class_names:
+    - "glioma"
+    - "meningioma"
+    - "no_tumor"
+    - "pituitary"
+  batch_size: 32
+  learning_rate: 0.0005
+  weight_decay: 0.0001
+  epochs: 15
+  lr_step_size: 5
+  lr_gamma: 0.5
+  early_stopping_patience: 5
+  checkpoint_dir: "checkpoints"
+  checkpoint_name: "best_classifier.pth"
+  results_dir: "results/classification"
+
+segmentation:
+  architecture: "unet"
+  encoder_name: "resnet34"
+  encoder_weights: "imagenet"
+  in_channels: 3
+  classes: 1
+  batch_size: 16
+  learning_rate: 0.0005
+  weight_decay: 0.0001
+  epochs: 20
+  lr_step_size: 7
+  lr_gamma: 0.5
+  early_stopping_patience: 6
+  threshold: 0.5
+  loss_type: "combined"         # "bce", "dice", or "combined" (BCE + Dice)
+  checkpoint_dir: "checkpoints"
+  checkpoint_name: "best_segmenter.pth"
+  results_dir: "results/segmentation"
+
+explainability:
+  method: "gradcam"
+  target_layer: "layer4.-1"
+  results_dir: "results/visualizations"
+
+app:
+  classifier_checkpoint: "checkpoints/best_classifier.pth"
+  segmenter_checkpoint: "checkpoints/best_segmenter.pth"
+  default_threshold: 0.5
+  enable_gradcam: true
